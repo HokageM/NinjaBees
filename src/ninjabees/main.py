@@ -36,7 +36,7 @@ def main(args):
     args = parse_args(args)
 
     # Example usage
-    hive = Hive("MyHive", num_onlooker_bees=2, x=int(random.uniform(0, 89)), y=int(random.uniform(0, 199)))
+    hive = Hive("MyHive", num_onlooker_bees=1, x=int(random.uniform(0, 89)), y=int(random.uniform(0, 199)))
 
     food1 = FoodSource("Flower", 80, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
     food2 = FoodSource("Tree", 10, int(random.uniform(0, 89)), int(random.uniform(0, 199)))

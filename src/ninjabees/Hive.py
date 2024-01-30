@@ -58,17 +58,22 @@ class Hive:
             self.employed_bees_phase()
             self.onlooker_bees_phase()
 
+            # Update the map
             for bee in self.bee_population:
                 if bee.x != 0 or bee.y != 0:
                     if bee.found_food:
-                        self.map[bee.x][bee.y] = 'B'
+                        self.map[bee.x][bee.y] = 'S' if bee.is_scout else 'B'
                     else:
-                        self.map[bee.x][bee.y] = 'b'
+                        self.map[bee.x][bee.y] = 's' if bee.is_scout else 'b'
             for source in self.found_food_sources:
                 if source.x != 0 or source.y != 0:
                     self.map[source.x][source.y] = 'F'
 
             Animator.print_hive_status(self)
+
+            if len(self.found_food_sources) == len(self.food_sources):
+                print(f'All food sources found! In {iteration} iterations')
+                return
 
     def employed_bees_phase(self):
         for bee in self.bee_population:
@@ -83,7 +88,7 @@ class Hive:
         if len(self.found_food_sources) < self.num_onlooker_bees:
             selected_sources = self.found_food_sources
         else:
-            selected_sources = random.choices(self.found_food_sources,
+            selected_sources = random.choice(self.found_food_sources,
                                           weights=[self.calculate_food_source_quality(source) for source in
                                                    self.found_food_sources],
                                           k=self.num_onlooker_bees)
