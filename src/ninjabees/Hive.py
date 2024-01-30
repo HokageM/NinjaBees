@@ -88,7 +88,7 @@ class Hive:
         if len(self.found_food_sources) < self.num_onlooker_bees:
             selected_sources = self.found_food_sources
         else:
-            selected_sources = random.choice(self.found_food_sources,
+            selected_sources = random.choices(self.found_food_sources,
                                           weights=[self.calculate_food_source_quality(source) for source in
                                                    self.found_food_sources],
                                           k=self.num_onlooker_bees)
