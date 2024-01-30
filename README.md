@@ -2,20 +2,16 @@
 
 <img src="logo/NinjaBees.jpg" width="200">
 
-An implementation of the Bee Colony Optimization algorithm.
+An implementation of a simulation of a bee colony.
 
-# Bee Colony Optimization Algorithm
-The Bee Colony Optimization (BCO) algorithm is a nature-inspired optimization algorithm based on the foraging behavior 
-of honeybees. 
-It belongs to the class of swarm intelligence algorithms, where a group of agents collaboratively searches
-for solutions to optimization problems.
+# Usage
 
-The solutions to the problem are considered as potential food sources, 
-and the algorithm iteratively refines these solutions to find the optimal or near-optimal solution.
+```bash
+usage: ninja_bees [-h] [--version]
 
-BCO has been applied to various optimization problems, 
-including function optimization, scheduling, routing, and other combinatorial optimization tasks. 
+Simulation of a bee colony using the bee colony optimization algorithm.
 
-Its effectiveness lies in its ability to balance exploration and
-exploitation through the collaboration of artificial agents,
-mimicking the foraging behavior of bees in a colony.
+options:
+  -h, --help  show this help message and exit
+  --version   show program's version number and exit
+```

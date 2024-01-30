@@ -1,9 +1,11 @@
 import argparse
 import sys
+import random
 
-from BeeColony import BeeColony
+from .Hive import Hive
+from .FoodSource import FoodSource
 
-#from ninjabees import __version__
+from ninjabees import __version__
 
 __author__ = "HokageM"
 __copyright__ = "HokageM"
@@ -20,11 +22,12 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Implementation of the Bee Colony Algorithm.")
+    parser = argparse.ArgumentParser(
+        description="Simulation of a bee colony using the bee colony optimization algorithm.")
     parser.add_argument(
         "--version",
         action="version",
-        #version=f"NinjaBees {__version__}",
+        version=f"NinjaBees {__version__}",
     )
     return parser.parse_args(args)
 
@@ -33,18 +36,26 @@ def main(args):
     args = parse_args(args)
 
     # Example usage
-    num_iterations = 10000
-    num_bees = 50
-    solution_size = 2
-    learning_rate = 0.6  # Adjusted learning_rate for exploration
-    max_trials = 10
+    hive = Hive("MyHive", num_onlooker_bees=2, x=int(random.uniform(0, 89)), y=int(random.uniform(0, 199)))
 
-    bee_colony = BeeColony(max_trials=max_trials, learning_rate=learning_rate)
+    food1 = FoodSource("Flower", 80, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
+    food2 = FoodSource("Tree", 10, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
+    food3 = FoodSource("Garden", 100, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
+    food4 = FoodSource("Flower 2", 88, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
+    food5 = FoodSource("Tree 2", 77, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
+    food6 = FoodSource("Garden 2", 300, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
 
-    best_solution, best_fitness = bee_colony.optimization(num_iterations, num_bees, solution_size)
+    # random int in range [a, b]: int(random.uniform(a, b))
+    x = int(random.uniform(0, 199))
 
-    print("\nOptimal Solution:", best_solution)
-    print("Optimal Fitness:", best_fitness)
+    hive.add_food_source(food1)
+    hive.add_food_source(food2)
+    hive.add_food_source(food3)
+    hive.add_food_source(food4)
+    hive.add_food_source(food5)
+    hive.add_food_source(food6)
+
+    hive.forage(max_iterations=10000)
 
 
 def run():
