@@ -3,6 +3,7 @@ import random
 from .Animator import Animator
 from .Bee import Bee
 
+
 class Hive:
     def __init__(self, name, num_onlooker_bees, x=0, y=0):
         self.name = name
@@ -89,9 +90,9 @@ class Hive:
             selected_sources = self.found_food_sources
         else:
             selected_sources = random.choices(self.found_food_sources,
-                                          weights=[self.calculate_food_source_quality(source) for source in
-                                                   self.found_food_sources],
-                                          k=self.num_onlooker_bees)
+                                              weights=[self.calculate_food_source_quality(source) for source in
+                                                       self.found_food_sources],
+                                              k=self.num_onlooker_bees)
 
         for bee in self.bee_population:
             if bee.is_scout:

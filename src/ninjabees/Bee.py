@@ -1,5 +1,6 @@
 import random
 
+
 class Bee:
     def __init__(self, name, hive, is_scout=False, exploration_radius=3, move_range=5):
         self.name = name
