@@ -1,11 +1,11 @@
 import random
 
 from .Animator import Animator
-from .Bee import Bee
+from .Bee import Bee, BeeJob
 
 
 class Hive:
-    def __init__(self, name, num_onlooker_bees, x=0, y=0):
+    def __init__(self, name, num_onlooker_bees, max_cnt_foraging_bees=100, x=0, y=0):
         self.name = name
         self.num_onlooker_bees = num_onlooker_bees
 
@@ -15,19 +15,9 @@ class Hive:
         self.x = x
         self.y = y
 
-        self.bee_population = [Bee("Bee", self),
-                               Bee("Bee", self),
-                               Bee("Bee", self),
-                               Bee("Bee", self),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True),
-                               Bee("BeeScout", self, is_scout=True)
-                               ]
+        self.__current_foraging = 0
+        self.max_cnt_foraging_bees = max_cnt_foraging_bees
+        self.bee_population = [Bee("Bee", self) for _ in range(200)]
 
         self.map = [['-' for _ in range(200)] for _ in range(90)]
         self.map[self.x][self.y] = 'H'
@@ -62,10 +52,10 @@ class Hive:
             # Update the map
             for bee in self.bee_population:
                 if bee.x != 0 or bee.y != 0:
-                    if bee.found_food:
-                        self.map[bee.x][bee.y] = 'S' if bee.is_scout else 'B'
+                    if bee.has_found_food():
+                        self.map[bee.x][bee.y] = 'S' if bee.get_job() == BeeJob.Scout else 'B'
                     else:
-                        self.map[bee.x][bee.y] = 's' if bee.is_scout else 'b'
+                        self.map[bee.x][bee.y] = 's' if bee.get_job() == BeeJob.Scout else 'b'
             for source in self.found_food_sources:
                 if source.x != 0 or source.y != 0:
                     self.map[source.x][source.y] = 'F'
@@ -78,7 +68,7 @@ class Hive:
 
     def employed_bees_phase(self):
         for bee in self.bee_population:
-            if bee.found_food:
+            if bee.has_found_food():
                 bee.return_home()
             else:
                 bee.explore(self.food_sources)
@@ -86,16 +76,21 @@ class Hive:
     def onlooker_bees_phase(self):
         if len(self.found_food_sources) == 0:
             return
-        if len(self.found_food_sources) < self.num_onlooker_bees:
-            selected_sources = self.found_food_sources
-        else:
-            selected_sources = random.choices(self.found_food_sources,
-                                              weights=[self.calculate_food_source_quality(source) for source in
-                                                       self.found_food_sources],
-                                              k=self.num_onlooker_bees)
 
         for bee in self.bee_population:
-            if bee.is_scout:
-                continue
-            if bee.x == 0 and bee.y == 0:
-                bee.exploration_goal = random.choice(selected_sources)
+            if self.__current_foraging < self.max_cnt_foraging_bees:
+                # For every bee in population which is currently a scout bee and has not found food,
+                # set its food goal random where the probability of selecting a food source is proportional to its quality.
+                if bee.get_job() == BeeJob.Scout and not bee.has_found_food():
+                    bee.set_food_goal(random.choices(self.found_food_sources,
+                                                     weights=[self.calculate_food_source_quality(source) for source in
+                                                              self.found_food_sources],
+                                                     k=self.num_onlooker_bees)[0])
+                    bee.set_job(BeeJob.Forager)
+                    self.__current_foraging += 1
+
+            if bee.get_job() == BeeJob.Forager and bee.get_food_goal() == None:
+                bee.set_food_goal(random.choices(self.found_food_sources,
+                                                 weights=[self.calculate_food_source_quality(source) for source in
+                                                          self.found_food_sources],
+                                                 k=self.num_onlooker_bees)[0])
