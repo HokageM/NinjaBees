@@ -45,9 +45,6 @@ def main(args):
     food5 = FoodSource("Tree 2", 77, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
     food6 = FoodSource("Garden 2", 300, int(random.uniform(0, 89)), int(random.uniform(0, 199)))
 
-    # random int in range [a, b]: int(random.uniform(a, b))
-    x = int(random.uniform(0, 199))
-
     hive.add_food_source(food1)
     hive.add_food_source(food2)
     hive.add_food_source(food3)
