@@ -80,7 +80,8 @@ class Hive:
         for bee in self.bee_population:
             if self.__current_foraging < self.max_cnt_foraging_bees:
                 # For every bee in population which is currently a scout bee and has not found food,
-                # set its food goal random where the probability of selecting a food source is proportional to its quality.
+                # set its food goal random where the probability of
+                # selecting a food source is proportional to its quality.
                 if bee.get_job() == BeeJob.Scout and not bee.has_found_food():
                     bee.set_food_goal(random.choices(self.found_food_sources,
                                                      weights=[self.calculate_food_source_quality(source) for source in
@@ -89,7 +90,7 @@ class Hive:
                     bee.set_job(BeeJob.Forager)
                     self.__current_foraging += 1
 
-            if bee.get_job() == BeeJob.Forager and bee.get_food_goal() == None:
+            if bee.get_job() == BeeJob.Forager and bee.get_food_goal() is None:
                 bee.set_food_goal(random.choices(self.found_food_sources,
                                                  weights=[self.calculate_food_source_quality(source) for source in
                                                           self.found_food_sources],
