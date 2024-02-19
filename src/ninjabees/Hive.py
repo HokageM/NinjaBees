@@ -3,6 +3,7 @@ import random
 from .Bee import Bee, BeeJob
 from .environment.Entity import Entity, EntityType
 
+
 class Hive(Entity):
     def __init__(self, name, num_onlooker_bees, max_cnt_foraging_bees=100, x=0, y=0, world=None):
         super().__init__(x, y, EntityType.Hive)
@@ -33,7 +34,6 @@ class Hive(Entity):
             if food_source not in self.food_sources:
                 self.world.add_entity(food_source)
                 self.food_sources.append(food_source)
-
 
     def employed_bees_phase(self):
         for bee in self.bee_population:
