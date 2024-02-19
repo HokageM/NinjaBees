@@ -1,19 +1,11 @@
-class FoodSource:
+from .environment.Entity import Entity, EntityType
+
+
+class FoodSource(Entity):
     def __init__(self, name, nutritional_val, x, y):
-        self.name = name
+        super().__init__(x, y, EntityType.Food)
         self.nutritional_val = nutritional_val
         self.amount = 100
-        self.x = x
-        self.y = y
 
     def get_amount(self):
         return self.amount
-
-    def get_name(self):
-        return self.name
-
-    def get_x(self):
-        return self.x
-
-    def get_y(self):
-        return self.y
