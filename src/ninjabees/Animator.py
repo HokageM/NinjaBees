@@ -11,12 +11,10 @@ class Animator:
         os.system('clear' if os.name == 'posix' else 'cls')
 
     @staticmethod
-    def print_hive_status(hive):
+    def print_world_status(world_map, found, total):
         Animator.clear_terminal()
-        for row in hive.map:
+        for row in world_map:
             print(''.join(row))
-        print(f'Found Food Sources: {len(hive.found_food_sources)} of {len(hive.food_sources)}')
 
-        hive.map = [['-' for _ in range(200)] for _ in range(90)]
-        hive.map[hive.x][hive.y] = 'H'
+        print(f'Found Food Sources: {found} of {total}')
         time.sleep(0.09)
