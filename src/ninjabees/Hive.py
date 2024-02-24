@@ -9,7 +9,7 @@ class Hive(Entity):
     This class represents a hive.
     """
 
-    def __init__(self, name, num_onlooker_bees, max_cnt_foraging_bees=300, x=0, y=0, world=None):
+    def __init__(self, name, num_onlooker_bees, max_cnt_foraging_bees=700, x=0, y=0, world=None):
         super().__init__(x, y, EntityType.Hive)
 
         self.name = name
@@ -22,7 +22,7 @@ class Hive(Entity):
 
         self.__current_foraging = 0
         self.max_cnt_foraging_bees = max_cnt_foraging_bees
-        self.bee_population = [Bee("Bee", self, world) for _ in range(600)]
+        self.bee_population = [Bee("Bee", self, world) for _ in range(900)]
 
     def add_found_food_source(self, food_source, path_to_food):
         """
