@@ -203,8 +203,25 @@ class Bee(Entity):
         x = self.get_x()
         y = self.get_y()
 
-        move_x = random.randint(-1, 1)
-        move_y = random.randint(-1, 1)
+        hive_x = self.hive.get_x()
+        hive_y = self.hive.get_y()
+
+        dist_x_r = abs(hive_x - (x + 1)) + 1
+        dist_x_l = abs(hive_x - (x - 1)) + 1
+        dist_x_n = abs(hive_x - x) + 1
+        dist_y_u = abs(hive_y - (y - 1)) + 1
+        dist_y_d = abs(hive_y - (y + 1)) + 1
+        dist_y_n = abs(hive_y - y) + 1
+
+        move_xy = random.choices([(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0),
+                                  (1, 1)],
+                                 weights=[max(dist_x_l, dist_y_u), max(dist_x_l, 0), max(dist_x_l, dist_y_d),
+                                          max(dist_y_u, 0), max(dist_x_n, dist_y_n), max(dist_y_d, 0),
+                                          max(dist_x_r, dist_y_u), max(dist_x_r, 0), max(dist_x_r, dist_y_d)],
+                                 k=1)[0]
+
+        move_x = move_xy[0]
+        move_y = move_xy[1]
 
         x += move_x
         y += move_y
