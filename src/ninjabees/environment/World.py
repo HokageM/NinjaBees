@@ -93,9 +93,11 @@ class World:
             elif entity_type == EntityType.Food:
                 self.__world_map[entity_y][entity_x] = f'{World.GREEN}F{World.RESET}'
             elif entity_type == EntityType.Hive:
-                self.__world_map[entity_y][entity_x] = 'H'
+                # self.__world_map[entity_y][entity_x] = 'H'
+                pass
             else:
                 raise ValueError("Unknown entity type")
+        self.__world_map[self.__hive.get_y()][self.__hive.get_x()] = 'H'
 
     def run(self, max_iterations):
         """
