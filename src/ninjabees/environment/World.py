@@ -93,7 +93,7 @@ class World:
             elif entity_type == EntityType.Food:
                 self.__world_map[entity_y][entity_x] = f'{World.GREEN}F{World.RESET}'
             elif entity_type == EntityType.Hive:
-                self.__world_map[entity_y][entity_x] = f'{World.MAGENTA}H{World.RESET}'
+                self.__world_map[entity_y][entity_x] = f'H'
             else:
                 raise ValueError("Unknown entity type")
 
