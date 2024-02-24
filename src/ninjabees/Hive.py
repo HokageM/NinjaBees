@@ -48,7 +48,6 @@ class Hive(Entity):
         if len(path_to_food) < len(self.found_food_sources[food_source]):
             self.found_food_sources[food_source] = list(path_to_food)
 
-
     def calculate_food_source_quality(self, food_source):
         """
         Calculate the quality of a food source.
