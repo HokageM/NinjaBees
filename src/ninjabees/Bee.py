@@ -156,7 +156,8 @@ class Bee(Entity):
         if x == self.hive.get_x() and y == self.hive.get_y():
             if self.__found_food:
                 self.__is_path_set_to_hive = False
-                self.hive.add_found_food_source(self.__found_food_source, list(self.__flying_path))
+                if self.__job == BeeJob.Scout:
+                    self.hive.add_found_food_source(self.__found_food_source, list(self.__flying_path))
             self.wait_for_instructions = True
             return
 
