@@ -39,8 +39,6 @@ class Hive(Entity):
             index += 1
         if x != food_source.get_x() or y != food_source.get_y():  # not a correct path
             raise Exception("Invalid path to food source")
-            while True:
-                pass
 
         if food_source not in self.found_food_sources:
             self.found_food_sources[food_source] = list(path_to_food)

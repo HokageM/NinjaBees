@@ -35,8 +35,6 @@ class Bee(Entity):
 
         self.__found_food = False
         self.__found_food_source = None
-        self.debug_path = []
-        self.debug_pos = [(hive.get_x(), hive.get_y())]
 
         self.__home_path = []
         self.__home_path_index = 0
@@ -187,13 +185,11 @@ class Bee(Entity):
             return
 
         move = self.__flying_path[self.__flying_index]
-        self.debug_path.append((move[0], move[1]))
         self.__flying_index += 1
         x += move[0]
         y += move[1]
         self.set_x(x)
         self.set_y(y)
-        self.debug_pos.append((self.get_x(), self.get_y()))
 
     def move(self):
         """
@@ -232,11 +228,11 @@ class Bee(Entity):
         if y < 0:
             y = 0
             move_y = 0
-        if x > 199:
-            x = 199
+        if x > self.world.get_width() - 1:
+            x = self.world.get_width() - 1
             move_x = 0
-        if y > 89:
-            y = 89
+        if y > self.world.get_height() - 1:
+            y = self.world.get_height() - 1
             move_y = 0
 
         if move_x == 0 and move_y == 0:
@@ -247,7 +243,6 @@ class Bee(Entity):
         self.set_y(y)
 
         self.__flying_path.append((move_x, move_y))
-        # self.__flying_path.add_step(move_x, move_y)
 
     def reset(self):
         """
@@ -267,9 +262,6 @@ class Bee(Entity):
         self.__home_path_index = 0
         self.__flying_path = []
         self.__flying_index = 0
-
-        self.debug_path = []
-        self.debug_pos = [(self.hive.get_x(), self.hive.get_y())]
 
     def reverse_flying_path(self):
         """

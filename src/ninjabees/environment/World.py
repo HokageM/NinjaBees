@@ -28,15 +28,6 @@ class World:
 
         self.__world_map = [[' ' for _ in range(width)] for _ in range(height)]
 
-    def add_food_source(self, food_source):
-        """
-        Add a food source to the world.
-        :param food_source:
-        :return:
-        """
-        self.__unclaimed_food_sources.append(food_source)
-        self.__n_food_sources += 1
-
     def get_unclaimed_food_source_at(self, x, y):
         """
         Get the unclaimed food sources.
@@ -46,6 +37,29 @@ class World:
             if food_source.get_x() == x and food_source.get_y() == y:
                 return food_source
         return None
+
+    def get_width(self):
+        """
+        Get the width of the world.
+        :return:
+        """
+        return self.__width
+
+    def get_height(self):
+        """
+        Get the height of the world.
+        :return:
+        """
+        return self.__height
+
+    def add_food_source(self, food_source):
+        """
+        Add a food source to the world.
+        :param food_source:
+        :return:
+        """
+        self.__unclaimed_food_sources.append(food_source)
+        self.__n_food_sources += 1
 
     def add_entity(self, entity):
         """
