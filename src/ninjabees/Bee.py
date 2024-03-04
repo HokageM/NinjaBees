@@ -19,10 +19,9 @@ class Bee(Entity):
 
     ENERGY = 600
 
-    def __init__(self, name, hive, world, exploration_radius=0):
+    def __init__(self, hive, world, exploration_radius=0):
         super().__init__(hive.get_x(), hive.get_y(), EntityType.Bee)
 
-        self.name = name
         self.hive = hive
         self.world = world
 
