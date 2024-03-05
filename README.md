@@ -17,6 +17,16 @@ Natural Behavior of Bees:
 - Information is only shared inside the Hive
 
 
+# Demo
+
+## Initial Phase of the Bee Colony
+
+![Alt Text](demo/BeeColonyInitial.gif)
+
+## Bee Colony after a few iterations
+
+![Alt Text](demo/BeesAfterIterations.gif)
+
 # Usage
 
 ```bash
