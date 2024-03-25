@@ -150,14 +150,6 @@ class Bee(Entity):
         x = self.get_x()
         y = self.get_y()
 
-        if x == self.hive.get_x() and y == self.hive.get_y():
-            if self.__found_food:
-                self.__is_path_set_to_hive = False
-                if self.__job == BeeJob.Scout:
-                    self.hive.add_found_food_source(self.__found_food_source, list(self.__flying_path))
-            self.wait_for_instructions = True
-            return
-
         if not self.__is_path_set_to_hive:
             self.__is_path_set_to_hive = True
             self.reverse_flying_path()
@@ -168,6 +160,14 @@ class Bee(Entity):
         y += move[1]
         self.set_x(x)
         self.set_y(y)
+
+        if x == self.hive.get_x() and y == self.hive.get_y():
+            if self.__found_food:
+                self.__is_path_set_to_hive = False
+                if self.__job == BeeJob.Scout:
+                    self.hive.add_found_food_source(self.__found_food_source, list(self.__flying_path))
+            self.wait_for_instructions = True
+            return
 
     def move_towards_exploration_goal(self):
         """
